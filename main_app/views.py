@@ -9,6 +9,9 @@ import uuid
 def home(request):
     return render(request, 'home.html')
 
+def main(request):
+    return render(request, 'main.html')
+
 def tutorial(request):
     return render(request, 'tutorial.html')
 
