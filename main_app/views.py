@@ -8,19 +8,19 @@ import uuid
 import boto3
 
 def home(request):
-    return render(request, 'home.html')
+  return render(request, 'home.html')
 
 def main(request):
-    return render(request, 'main.html')
+  return render(request, 'main.html')
 
 def tutorial(request):
-    return render(request, 'tutorial.html')
+  return render(request, 'tutorial.html')
 
 def profile(request):
-    return render(request, 'profile.html')
+  return render(request, 'profile.html')
 
 def buy(request):
-    return render(request, 'buy.html')
+  return render(request, 'buy.html')
 
 def signup(request):
   error_message = ''
