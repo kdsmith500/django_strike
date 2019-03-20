@@ -1,11 +1,13 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 
 def home(request):
-    return HttpResponse('<h1>Herro /ᐠ｡‸｡ᐟ\ﾉ</h1>')
+    return render(request, 'home.html')
 
-def about(request):
-    return render(request, 'about.html')
+def tutorial(request):
+    return render(request, 'tutorial.html')
 
-def strike_index(request):
-    return render(request, 'strike/index.html', { 'strike': strike })
+def profile(request):
+    return render(request, 'profile.html')
+
+def buy(request):
+    return render(request, 'buy.html')
