@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKtx17PJpklfAdoqyXzohhR5VO-qBbgEY&callback=initMap"></script>
+
+<div id="flex">
+    <div id="map"></div>
+    <aside>
+        <div id="side-menu" class="side-nav">
+            <a href="#">Targets</a>
+            <a href="#">search</a>
+            <a href="#">MY $</a>
+            <a href="#">Fire!
+                <button class="button button5">FIRE!</button>
+            </a>
+        </div>
+    </aside>
+</div>
+
+<script>
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 30.2691, lng: -97.7457},
+          zoom: 6
+        });
+        google.maps.event.addListener(map, 'click', function( event ) {
+            alert( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() ); 
+        });
+    }
+    var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        scale: 8,
+        strokeColor: '#393'
+    };
+    var line = new google.maps.Polyline({
+        path: [{lat: 30.2691, lng: -97.7457}, {lat: 18.291, lng: 153.027}],
+        icons: [{
+            icon: lineSymbol,
+            offset: '100%'
+        }],
+        map: map
+    });
+
+    animateCircle(line);
+
+    function animateCircle(line) {
+        var count = 0;
+        window.setInterval(function() {
+            count = (count + 1) % 200;
+            var icons = line.get('icons');
+            icons[0].offset = (count / 2) + '%';
+            line.set('icons', icons);
+        }, 20);
+    }
+</script>
+
+{% endblock %}
