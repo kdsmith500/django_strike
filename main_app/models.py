@@ -16,8 +16,8 @@ class Location(models.Model):
 
 class Weapon(models.Model):
     weapon_name = models.CharField(max_length=100)
-    v_min = models.IntegerField()
-    v_max = models.IntegerField()
+    r_min = models.IntegerField()
+    r_max = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -27,6 +27,7 @@ class Weapon(models.Model):
         
 class User(models.Model):
     user = models.CharField(max_length=100)
+    image = models.CharField(max_length=250)
     bio = models.TextField(max_length=250)
     base = models.CharField(max_length=100)
     satellite = models.CharField(max_length=250)
