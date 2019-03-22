@@ -19,39 +19,92 @@
 
 <script>
     var map;
+    var pos = {};
+    state = {};
+
     function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 30.2691, lng: -97.7457},
-          zoom: 6
-        });
-        google.maps.event.addListener(map, 'click', function( event ) {
-            alert( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() ); 
-        });
-    }
-    var lineSymbol = {
-        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-        scale: 8,
-        strokeColor: '#393'
-    };
-    var line = new google.maps.Polyline({
-        path: [{lat: 30.2691, lng: -97.7457}, {lat: 18.291, lng: 153.027}],
-        icons: [{
-            icon: lineSymbol,
-            offset: '100%'
-        }],
-        map: map
-    });
 
-    animateCircle(line);
+      var getPosition = function(options) {
+        return new Promise(function(resolve, reject) {
+          navigator.geolocation.getCurrentPosition(resolve, reject, options);
+        });
+      }
 
-    function animateCircle(line) {
-        var count = 0;
-        window.setInterval(function() {
-            count = (count + 1) % 200;
-            var icons = line.get('icons');
-            icons[0].offset = (count / 2) + '%';
-            line.set('icons', icons);
-        }, 20);
+      getPosition()
+        .then((position) => {
+          console.log(position);
+          console.log(position.coords.latitude)
+          console.log(position.coords.longitude)
+
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {
+              lat: 20.2691,
+              lng: 97.7457
+            },
+            zoom: 4,
+            mapTypeId: 'terrain',
+            disableDefaultUI: true
+          });
+          infoWindow = new google.maps.InfoWindow
+          pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          console.log(pos, 'line 54')
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent('Location found.');
+          infoWindow.open(map);
+          map.setCenter(pos);
+
+          google.maps.event.addListener(map, 'click', function(event) {
+            alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+
+          });
+
+
+          // Define the symbol, using one of the predefined paths ('CIRCLE')
+          // supplied by the Google Maps JavaScript API.
+          var lineSymbol = {
+            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+            scale: 8,
+            strokeColor: '#393'
+          };
+
+          // Create the polyline and add the symbol to it via the 'icons' property.
+          var line = new google.maps.Polyline({
+            path: [pos, {
+              lat: 33.2436,
+              lng: -111.115
+            }],
+            icons: [{
+              icon: lineSymbol,
+              offset: '100%'
+            }],
+            map: map
+          });
+
+          animateCircle(line);
+
+
+          // Use the DOM setInterval() function to change the offset of the symbol
+          // at fixed intervals.
+          function animateCircle(line) {
+            var count = 0;
+            window.setInterval(function() {
+              count = (count + 1) % 200;
+
+              var icons = line.get('icons');
+              icons[0].offset = (count / 2) + '%';
+              line.set('icons', icons);
+            }, 20);
+          }
+
+        })
+        .catch((err) => {
+          console.error(err.message);
+
+        });
     }
 </script>
 

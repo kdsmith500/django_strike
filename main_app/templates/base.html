@@ -6,19 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Notable">
     <title>Django Strike</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Notable">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
-        <a href="{% url 'home' %}"><h1>Django Strike</h1></a>
+    <a href="{% url 'home' %}"><h1>Django Strike</h1></a>
 
     <nav>
-        <a href="{% url 'main' %}">Main</a>
         <a href="{% url 'tutorial' %}">Tutorial</a>
         {% if user.is_authenticated %}
+            <a href="{% url 'main' %}">Main</a>
             <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'base_create' %}">Base Create</a>
             <a href="{% url 'buy' %}">Buy $</a>
             <a href="{% url 'logout' %}">Log Out</a>
         {% else %}
@@ -32,7 +34,7 @@
         {% endblock %}
     </main>
 
-  	 <footer>
+  	<footer>
         <div>All Rights Reserved, &copy; 2019 Django Strike &nbsp;</div>
     </footer>
 </body>
