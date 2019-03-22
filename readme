@@ -1,0 +1,29 @@
+Django STRIKE
+About
+Django STRIKE is an app meant to be enjoyed by users all over the globe 
+from ages 13 and up. App functionality is most aptly described as a live 
+version of the classic game Battleship. Users will be able to log in and 
+mark their location as a base, from where they may shoot at randomly 
+generated targets, given by longitude and latitude coordinates. Users are 
+given 10 random coordinates at a time, and once they successfully hit a target, 
+it is removed from their collection while the player earns points. In order to 
+successfully destroy a target, the user will enter parameters such as initial 
+velocity/power and projection angle. The user may continue to shoot until 
+((ICE)Optionally, a user may also see the coordinates of other friends' bases, 
+and may purchase extra game features to be able to shoot at those targets.)
+
+Technologies
+Python 3
+Django
+HTML
+CSS
+Google Maps API
+External Links
+Trello Productivity Management Board
+
+Pitch Presentation
+
+Future Enhancements
+In the future, this game would ideally give players the ability 
+to choose the weapon they want to shoot with, be able to buy new weapons,
+ and also shoot at their friends' bases instead of choosing random targets.
