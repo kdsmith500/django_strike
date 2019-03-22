@@ -26,15 +26,17 @@ def main(request):
 def tutorial(request):
   return render(request, 'tutorial.html')
 
-def profile(request):
-  return render(request, 'profile.html')
+def profile(request, profile_id, base_id):
+  profile = Profile.objects.get(id=profile_id)
+  base = Base.objects.get(id=base_id)
+  return render(request, 'profile.html', {
+    'profile': profile, 'base': base
+  })
 
 def buy(request):
   return render(request, 'buy.html')
 
-def signup(request, user_id):
-  user = User.objects.get(pk=user_id)
-  user.save()
+def signup(request):
   error_message = ''
   if request.method == 'POST':
     form = UserCreationForm(request.POST)

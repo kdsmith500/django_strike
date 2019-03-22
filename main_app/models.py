@@ -26,7 +26,7 @@ class Weapon(models.Model):
 
     def get_absolute_url(self):
         return reverse('weapons_detail', kwargs={'pk': self.id})
-        
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     targets = models.CharField(max_length=250)
@@ -42,12 +42,16 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'profile_id': self.id})
 
+    def has_base(self):
+        return self.base_set.filter(base_name)
+
 class Base(models.Model):
     base_name = models.CharField(max_length=100)
     base_lat = models.IntegerField()
     base_lng = models.IntegerField()
     damage = models.IntegerField(blank=True, null=True)
-    # profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.base_name
@@ -55,5 +59,5 @@ class Base(models.Model):
     def get_absolute_url(self):
         return reverse('weapons_detail', kwargs={'pk': self.id})
 
-    class Meta:
-        ordering = ['base_name',]
+    # class Meta:
+    #     ordering = ['base_name',]
