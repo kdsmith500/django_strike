@@ -20,7 +20,6 @@
         {% if user.is_authenticated %}
             <a href="{% url 'main' %}">Main</a>
             <a href="{% url 'profile' %}">Profile</a>
-            <a href="{% url 'base_create' %}">Base Create</a>
             <a href="{% url 'buy' %}">Buy $</a>
             <a href="{% url 'logout' %}">Log Out</a>
         {% else %}

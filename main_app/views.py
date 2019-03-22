@@ -1,21 +1,22 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+# from django.views.generic.edit import CreateView
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Profile, Location, Weapon, Base
+# from .models import Profile, Location, Weapon, Base
+from .models import Profile
 import uuid
 import boto3
 
-class BaseCreate(LoginRequiredMixin, CreateView):
-  model = Base
-  fields = ['base_name', 'base_lat', 'base_lng']
+# class BaseCreate(LoginRequiredMixin, CreateView):
+#   model = Base
+#   fields = ['base_name', 'base_lat', 'base_lng']
 
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+#   def form_valid(self, form):
+#     form.instance.user = self.request.user
+#     return super().form_valid(form)
 
 def home(request):
   return render(request, 'home.html')
@@ -26,12 +27,10 @@ def main(request):
 def tutorial(request):
   return render(request, 'tutorial.html')
 
-def profile(request, profile_id, base_id):
+def profile(request, profile_id):
+  # profile = Profile.objects.filter(user = request.user)
   profile = Profile.objects.get(id=profile_id)
-  base = Base.objects.get(id=base_id)
-  return render(request, 'profile.html', {
-    'profile': profile, 'base': base
-  })
+  return render(request, 'profile.html', { 'profile': profile })
 
 def buy(request):
   return render(request, 'buy.html')
