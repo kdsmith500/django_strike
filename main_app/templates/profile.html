@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>!PROFILE!</h1>
+
+<div>
+    <div>
+        <p>Username: {{ profile.user }}</p>
+        <p>Money: {{ profile.money }}</p>
+        <p>Strikes: {{ profile.strikes }}</p>
+        <p>Strikes Recieved: {{ profile.strikes_recieved }}</p>
+        <p>Weapons: {{ profile.weapons }}</p>
+        <p>Base Name: {{ base.base_name }}</p>
+        <p>Damage Recieved: {{ base.damage }}</p>
+    </div>
+    <div>
+        <a href="#">Edit</a>
+        <a href="#">Delete</a>
+    </div>
+</div>
+
+{% endblock %}

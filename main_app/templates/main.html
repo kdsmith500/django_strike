@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKtx17PJpklfAdoqyXzohhR5VO-qBbgEY&callback=initMap"></script>
+
+<div id='flex'>
+  <div id="map"></div>
+  <div id='menu'>
+    <div id="side-menu" class="side-nav">
+      <a href="#">Targets</a>
+      <a href="#">search</a>
+      <a href="#">MY $</a>
+      <a href="#">Fire!
+        <button class="button5">FIRE!</button>
+      </a>
+    </div>
+    <div>
+    </div>
+
+    <script>
+      var map;
+      var pos = {};
+      var pos2 = {};
+      var marker;
+      state = {};
+      let count = 0;
+
+      function initMap() {
+
+        var getPosition = function(options) {
+          return new Promise(function(resolve, reject) {
+            navigator.geolocation.getCurrentPosition(resolve, reject, options);
+          });
+        }
+
+        getPosition()
+          .then((position) => {
+            console.log(position);
+            console.log(position.coords.latitude)
+            console.log(position.coords.longitude)
+
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: {
+                lat: 20.2691,
+                lng: 97.7457
+              },
+              zoom: 4,
+              mapTypeId: 'terrain',
+              disableDefaultUI: true
+            });
+            infoWindow = new google.maps.InfoWindow
+            pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            console.log(pos, 'line 54')
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+
+            // ... all the google map code from above
+            google.maps.event.addListener(map, 'click', function(event) {
+
+              pos2 = {
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng()
+              }
+
+
+
+              marker = new google.maps.Marker({
+                position: pos2,
+                map: map,
+                title: 'Hello World!'
+              });
+              alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+
+              let array = [];
+
+              array.push({
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng()
+              })
+              console.log(array);
+
+              let angle = prompt('enter an angle');
+
+              let vInit = prompt('enter a initial velocity in km/s');
+
+              console.log('current location: ', pos)
+              console.log('target: ', array[array.length - 1]);
+              console.log('angle: ', angle);
+              console.log('vInit: ', vInit);
+
+
+
+
+
+              var lineSymbol = {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                scale: 8,
+                strokeColor: '#393'
+              };
+              var line = new google.maps.Polyline({
+                path: [pos, pos2],
+                icons: [{
+                  icon: lineSymbol,
+                  offset: '100%'
+                }],
+                map: map
+              });
+
+              animateCircle(line);
+
+              function animateCircle(line) {
+                var count = 0;
+                window.setInterval(function() {
+                  count = (count + 1) % 200;
+
+                  var icons = line.get('icons');
+                  icons[0].offset = (count / 2) + '%';
+                  line.set('icons', icons);
+                }, 20);
+              }
+
+
+            });
+          })
+
+      }
+    </script>
+
+    {% endblock %}
