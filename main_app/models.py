@@ -59,5 +59,13 @@ class Base(models.Model):
     def get_absolute_url(self):
         return reverse('weapons_detail', kwargs={'pk': self.id})
 
-    # class Meta:
-    #     ordering = ['base_name',]
+
+
+
+# git    # class Meta:
+    #     ordering = ['base_name',]  
+      
+       
+
+        
+        
