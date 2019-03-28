@@ -29,5 +29,5 @@ to choose the weapon they want to shoot with, be able to buy new weapons,
  and also shoot at their friends' bases instead of choosing random targets.
  
  github: https://github.com/kdsmith500/django_strike.git
- miro: 
- heroku: 
+ miro: https://realtimeboard.com/app/board/o9J_kyc__18=/
+ heroku: https://git.heroku.com/django-strike.git (currently broken)
